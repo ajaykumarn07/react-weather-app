@@ -18,10 +18,10 @@ const Inputs = ({ setQuery, setUnits }) => {
   };
 
   return (
-    <div className="flex flex-row justify-center my-6">
-      <div className="flex flex-row w-3/4 items-center justify-center space-x-4">
+    <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between my-6">
+      <div className="flex flex-col sm:flex-row w-full sm:w-3/4 items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
         <input
-          className="text-gray-500 text-xl font-light p-2 w-full shadow-xl capitalize focus:outline-none placeholder:lowercase"
+          className="text-gray-500 text-xl font-light p-2 w-full sm:w-auto shadow-xl capitalize focus:outline-none placeholder:lowercase"
           type="text"
           placeholder="Search by city"
           value={city}
@@ -32,18 +32,20 @@ const Inputs = ({ setQuery, setUnits }) => {
             }
           }}
         />
-        <BiSearch
-          size={30}
-          className="cursor-pointer transition ease-out hover:scale-125"
-          onClick={handleSearchClick}
-        />
-        <BiCurrentLocation
-          size={30}
-          className="cursor-pointer transition ease-out hover:scale-125"
-          onClick={handleLocationClick}
-        />
+        <div className="flex flex-row items-center justify-center space-x-4">
+          <BiSearch
+            size={30}
+            className="cursor-pointer transition ease-out hover:scale-125"
+            onClick={handleSearchClick}
+          />
+          <BiCurrentLocation
+            size={30}
+            className="cursor-pointer transition ease-out hover:scale-125"
+            onClick={handleLocationClick}
+          />
+        </div>
       </div>
-      <div className="flex flex-row w-1/4 items-center justify-center">
+      <div className="flex flex-row mt-4 sm:mt-0 w-full sm:w-1/4 items-center justify-center">
         <button
           className="text-2xl font-medium transition ease-out hover:scale-125"
           onClick={() => setUnits("metric")}

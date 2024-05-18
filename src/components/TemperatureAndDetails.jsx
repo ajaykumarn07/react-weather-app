@@ -68,21 +68,18 @@ const TemperatureAndDetails = ({
   ];
 
   return (
-    <div>
-      <div className="flex items-center justify-center py-6 text-xl text-cyan-300">
+    <div className="text-center py-6 sm:py-8 lg:py-10">
+      <div className="flex items-center justify-center text-xl text-cyan-300">
         {/* <p>Rain</p> */}
         <p>{details}</p>
       </div>
-      <div className="flex flex-row items-center justify-between py-3">
-        <img src={icon} alt="Weather Icon" className="w-20" />
-        <p className="text-5xl">{`${temp.toFixed()}°`}</p>
+      <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between py-3">
+        <img src={icon} alt="Weather Icon" className="w-20 mb-3 sm:mb-0" />
+        <p className="text-4xl sm:text-5xl">{`${temp.toFixed()}°`}</p>
 
-        <div className="flex flex-col space-y-3 items-start">
+        <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 items-center justify-center">
           {verticalDetails.map(({ id, Icons, title, value }) => (
-            <div
-              key={id}
-              className="flex text-sm font-light items-center justify-center"
-            >
+            <div key={id} className="flex text-sm font-light items-center">
               <Icons size={18} className="mr-1" />
               {`${title}:`}
               <span className="font-medium ml-1">{`${value}`}</span>
@@ -90,10 +87,10 @@ const TemperatureAndDetails = ({
           ))}
         </div>
       </div>
-      <div className="flex flex-row items-center justify-center space-x-10 text-sm py-3">
+      <div className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-10 text-sm py-3">
         {horizontalDetails.map(({ id, Icons, title, value }) => {
           return (
-            <div key={id} className="flex flex-row items-center justify-center">
+            <div key={id} className="flex items-center">
               <Icons size={30} />
               <p className="font-light ml-1">
                 {`${title}:`}
