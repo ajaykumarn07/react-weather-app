@@ -21,7 +21,7 @@ const Inputs = ({ setQuery, setUnits }) => {
     <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between my-6">
       <div className="flex flex-col sm:flex-row w-full sm:w-3/4 items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
         <input
-          className="text-gray-500 text-xl font-light p-2 w-full sm:w-auto shadow-xl capitalize focus:outline-none placeholder:lowercase"
+          className="text-gray-500 text-xl font-light p-2 w-full shadow-xl capitalize focus:outline-none placeholder:lowercase"
           type="text"
           placeholder="Search by city"
           value={city}
