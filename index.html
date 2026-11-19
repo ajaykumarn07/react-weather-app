@@ -2,11 +2,88 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/src/assets/weather.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- Primary Meta Tags -->
+    <title>SkyPulse Weather | Current Conditions & Forecasts</title>
+    <meta
+      name="description"
+      content="View current weather, an hourly forecast, a 5-day outlook, and air quality for cities worldwide. Search locations, save favorites, and choose Celsius or Fahrenheit."
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <link rel="canonical" href="https://akn-weather-app.vercel.app/" />
+
+    <!-- Favicon & PWA -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/weather.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0b132b" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://akn-weather-app.vercel.app/" />
+    <meta property="og:site_name" content="SkyPulse Weather" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:title" content="SkyPulse Weather | Current Conditions & Forecasts" />
+    <meta
+      property="og:description"
+      content="Check current weather, hourly conditions, a 5-day forecast, and air quality for cities worldwide."
+    />
+    <meta property="og:image" content="https://akn-weather-app.vercel.app/weather.svg" />
+    <meta property="og:image:alt" content="SkyPulse Weather" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://akn-weather-app.vercel.app/" />
+    <meta name="twitter:title" content="SkyPulse Weather | Current Conditions & Forecasts" />
+    <meta
+      name="twitter:description"
+      content="Check current weather, hourly conditions, a 5-day forecast, and air quality for cities worldwide."
+    />
+    <meta name="twitter:image" content="https://akn-weather-app.vercel.app/weather.svg" />
+
+    <!-- Schema.org JSON-LD Structured Data for Search Engines -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "SkyPulse Weather",
+        "url": "https://akn-weather-app.vercel.app/",
+        "description": "Current weather, hourly forecasts, a 5-day outlook, and air quality for cities worldwide.",
+        "applicationCategory": "WeatherApplication",
+        "operatingSystem": "Web",
+        "browserRequirements": "Requires JavaScript",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Current weather conditions and local time",
+          "Hourly weather forecast with precipitation probability",
+          "5-day weather forecast",
+          "Air quality information when available",
+          "Saved favorite locations",
+          "Celsius and Fahrenheit units"
+        ]
+      }
+    </script>
   </head>
-  <body>
+  <body class="bg-[#0b132b]">
+    <!-- Accessible Fallback for SEO Crawlers without JS -->
+    <noscript>
+      <div style="padding: 2rem; text-align: center; color: white; background: #0b132b; font-family: sans-serif;">
+        <h1>SkyPulse Weather — Current Conditions & Forecasts</h1>
+        <p>
+          Check current weather, hourly conditions, a 5-day forecast, and air quality for cities worldwide.
+        </p>
+        <p>Please enable JavaScript in your browser to experience live interactive weather telemetry.</p>
+      </div>
+    </noscript>
+
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

@@ -1,0 +1,6 @@
+# SkyPulse Weather Robots.txt
+User-agent: *
+Allow: /
+
+# Host
+Sitemap: https://akn-weather-app.vercel.app/sitemap.xml
