@@ -31,12 +31,14 @@ Copy `.env.example` to `.env`:
 ```bash
 cp .env.example .env
 ```
-Open [.env](file:///d:/AjayKumar/source/VSCodeEditor/weather-app/react-weather-app/.env) and enter your [OpenWeatherMap API Key](https://home.openweathermap.org/api_keys):
+Add your [OpenWeatherMap API Key](https://home.openweathermap.org/api_keys) to `.env`:
 ```env
-VITE_API_KEY=your_openweathermap_api_key_here
+OPENWEATHER_API_KEY=your_openweathermap_api_key_here
 ```
 
-`VITE_` variables are embedded in the browser bundle and are **not secrets**. This setup is suitable for local development only. Before a public production deployment, route weather-provider requests through a server-side function/API that keeps the provider key in server-only configuration, validates inputs, applies rate limits, and returns only the data the client needs. Restrict the provider key where supported, monitor its usage, and rotate it if it has ever been committed or exposed.
+Do not add a `VITE_` prefix: Vite exposes prefixed variables in the browser bundle. The local Vite development server proxies the app's weather requests through the same server-side handler used by Vercel.
+
+For Vercel, add `OPENWEATHER_API_KEY` under **Project Settings → Environment Variables** and redeploy. Keep it server-only, restrict the provider key where supported, monitor usage, and configure rate limiting for the public API route. Rotate the key if it has ever been committed or exposed.
 
 ### 3. Run Development Server
 ```bash
@@ -51,7 +53,7 @@ npm run build
 ## Production readiness
 
 - Deploy behind HTTPS. Browser geolocation requires a secure context and explicit user permission.
-- Keep provider credentials out of client-side `VITE_*` variables in production; see the development-only warning above.
+- Keep provider credentials out of client-side `VITE_*` variables; the `/api/weather` function uses the server-only `OPENWEATHER_API_KEY`.
 - Configure deployment security headers (including a Content Security Policy) for the actual host and API origins, and review external asset/font providers against that policy.
 - Add automated tests for weather parsing, failed/partial provider responses, search, and persisted settings before expanding the feature set.
 - Set provider usage alerts/quotas and define a privacy/retention policy for any location data. This app currently stores preferences and favorite city names in browser local storage.

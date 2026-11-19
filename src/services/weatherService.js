@@ -1,8 +1,16 @@
 import { DateTime } from "luxon";
 
-const API_KEY = import.meta.env.VITE_API_KEY;
-const BASE_URL = "https://api.openweathermap.org/data/2.5/";
-const GEO_URL = "https://api.openweathermap.org/geo/1.0/";
+const API_URL = "/api/weather";
+
+const createApiUrl = (type, params = {}) => {
+  const searchParams = new URLSearchParams({ type });
+  Object.entries(params).forEach(([key, value]) => {
+    if (value !== undefined && value !== null) {
+      searchParams.set(key, String(value));
+    }
+  });
+  return `${API_URL}?${searchParams}`;
+};
 
 const fetchJson = async (url, signal) => {
   const res = await fetch(url, { signal });
@@ -15,14 +23,7 @@ const fetchJson = async (url, signal) => {
 
 export const searchCities = async (query, { signal } = {}) => {
   if (!query || query.trim().length < 2) return [];
-  if (!API_KEY) throw new Error("Weather API key is missing. Add VITE_API_KEY to your environment.");
-  const url = new URL(`${GEO_URL}direct`);
-  url.search = new URLSearchParams({
-    q: query.trim(),
-    limit: "6",
-    appid: API_KEY,
-  });
-  const data = await fetchJson(url, signal);
+  const data = await fetchJson(createApiUrl("geocode", { q: query.trim() }), signal);
   return data.map((item) => ({
     name: item.name,
     state: item.state || "",
@@ -291,7 +292,7 @@ const formatCurrent = (data, units) => {
   };
 };
 
-const formatForecastWeather = (secs, offset, list, units) => {
+const formatForecastWeather = (secs, offset, list) => {
   // Hourly Forecast: next 8 3-hour increments (~24 hours)
   const hourly = list
     .filter((f) => f.dt >= secs - 3600)
@@ -387,35 +388,17 @@ const formatAirPollution = (data) => {
 
 export const getFormattedWeatherData = async (searchParams, { signal } = {}) => {
   const units = searchParams.units || "metric";
-  if (!API_KEY) throw new Error("Weather API key is missing. Add VITE_API_KEY to your environment.");
 
   // 1. Current Weather
-  const weatherUrl = new URL(`${BASE_URL}weather`);
-  weatherUrl.search = new URLSearchParams({
-    ...searchParams,
-    units,
-    appid: API_KEY,
-  });
+  const weatherUrl = createApiUrl("current", { ...searchParams, units });
   const currentRaw = await fetchJson(weatherUrl, signal);
   const formattedCurrent = formatCurrent(currentRaw, units);
 
   const { lat, lon, dt, timezone } = formattedCurrent;
 
   // 2. 5-Day Forecast & 3. Air Pollution (in parallel)
-  const forecastUrl = new URL(`${BASE_URL}forecast`);
-  forecastUrl.search = new URLSearchParams({
-    lat,
-    lon,
-    units,
-    appid: API_KEY,
-  });
-
-  const pollutionUrl = new URL(`${BASE_URL}air_pollution`);
-  pollutionUrl.search = new URLSearchParams({
-    lat,
-    lon,
-    appid: API_KEY,
-  });
+  const forecastUrl = createApiUrl("forecast", { lat, lon, units });
+  const pollutionUrl = createApiUrl("air_pollution", { lat, lon });
 
   const [forecastRaw, pollutionRaw] = await Promise.all([
     fetchJson(forecastUrl, signal).catch((err) => {
@@ -430,7 +413,7 @@ export const getFormattedWeatherData = async (searchParams, { signal } = {}) => 
     }),
   ]);
 
-  const formattedForecast = formatForecastWeather(dt, timezone, forecastRaw.list || [], units);
+  const formattedForecast = formatForecastWeather(dt, timezone, forecastRaw.list || []);
   const formattedPollution = formatAirPollution(pollutionRaw);
 
   return {

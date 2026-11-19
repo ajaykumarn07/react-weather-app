@@ -249,11 +249,18 @@ const App = () => {
 
         {/* Footer */}
         <footer className="mt-12 py-6 border-t border-white/10 text-center text-xs text-white/50 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p>© {new Date().getFullYear()} SkyPulse Weather. Real-time meteorological telemetry & atmospheric intelligence.</p>
-          <div className="flex items-center space-x-3">
-            <span>Powered by OpenWeatherMap API</span>
-            <span>•</span>
-            <span className="text-sky-300">High Precision Radar</span>
+          <p>© {new Date().getFullYear()} SkyPulse Weather.</p>
+          <div className="flex items-center gap-3">
+            <span>Built by Ajay Kumar N</span>
+            <span aria-hidden="true">·</span>
+            <a
+              href="https://openweathermap.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sky-300 hover:text-sky-200 hover:underline underline-offset-4"
+            >
+              Weather data by OpenWeatherMap
+            </a>
           </div>
         </footer>
       </div>
